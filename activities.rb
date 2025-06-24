@@ -17,6 +17,18 @@ module MoneyTransfer
         "OKW-#{details.amount}-#{details.source_account}"
       end
     end
+
+    # Activity that deposits a specified amount into the target account,
+    # raising an InvalidAccountError if that is not a valid account.
+    # It returns the transaction ID for the deposit.
+    class Deposit < Temporalio::Activity::Definition
+      def execute(details)
+        puts("Doing a deposit into #{details.target_account} for #{details.amount}")
+        raise InvalidAccountError, 'Invalid account number' if details.target_account == 'B5555'
+
+        # Generate and returnt the transaction ID
+        "OKD-#{details.amount}-#{details.target_account}"
+      end
+    end
   end
 end
-

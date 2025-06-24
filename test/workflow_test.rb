@@ -33,6 +33,22 @@ module MoneyTransfer
       end
     end
 
+    def test_workflow_refund
+      worker = create_worker([BankActivities::Withdraw, BankActivities::Deposit, BankActivities::Refund])
+
+      worker.run do
+        assert_equal(
+          'Transfer complete (transaction IDs: OKW-100-A1001, OKR-100-A1001)',
+          @@env.client.execute_workflow(
+            MoneyTransferWorkflow,
+            MoneyTransfer::TransferDetails.new('A1001', 'B5555', 100, 'REF123'),
+            id: "wf-#{SecureRandom.uuid}",
+            task_queue: worker.task_queue
+          )
+        )
+      end
+    end
+
     def test_workflow_fails_if_insufficient_funds
       worker = create_worker([BankActivities::Withdraw, BankActivities::Deposit])
 
@@ -58,4 +74,3 @@ module MoneyTransfer
     end
   end
 end
-

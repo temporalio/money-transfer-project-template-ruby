@@ -29,6 +29,15 @@ module MoneyTransfer
       result = env.run(BankActivities::Deposit.new, details)
       assert_equal('OKD-100-B2002', result)
     end
+
+    def test_deposit_fails_invalid_account
+      env = Temporalio::Testing::ActivityEnvironment.new
+      details = MoneyTransfer::TransferDetails.new('A1001', 'B5555', 100, 'REF123')
+
+      err = assert_raises(MoneyTransfer::InvalidAccountError) do
+        env.run(BankActivities::Deposit.new, details)
+      end
+      assert_equal('Invalid account number', err.message)
+    end
   end
 end
-

@@ -39,5 +39,12 @@ module MoneyTransfer
       end
       assert_equal('Invalid account number', err.message)
     end
+
+    def test_refund
+      env = Temporalio::Testing::ActivityEnvironment.new
+      details = MoneyTransfer::TransferDetails.new('A1001', 'B2002', 100, 'REF123')
+      result = env.run(BankActivities::Refund.new, details)
+      assert_equal('OKR-100-A1001', result)
+    end
   end
 end

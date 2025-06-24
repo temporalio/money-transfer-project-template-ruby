@@ -30,5 +30,22 @@ module MoneyTransfer
         "OKD-#{details.amount}-#{details.target_account}"
       end
     end
+
+    # Activity that deposits a specified amount into the source account,
+    # intended for cases in which a previous deposit attempt failed. This
+    # is defined as a separate Activity, distinct from the Deposit, so
+    # that it can perform any special handling that might be needed to
+    # process the refund (such as making a call to a third-party system).
+    # In this implementation, however, the behavior is identical to the
+    # deposit (with the exception of the transaction ID and log message).
+    # It returns the transaction ID for the refund.
+    class Refund < Temporalio::Activity::Definition
+      def execute(details)
+        puts("Refunding #{details.amount} back to account #{details.source_account}")
+
+        # Generate and returnt the transaction ID
+        "OKR-#{details.amount}-#{details.source_account}"
+      end
+    end
   end
 end

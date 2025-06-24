@@ -1,13 +1,14 @@
 # Money Transfer Example Project (Ruby SDK)
 
-The code in this repository demonstrates how to use the fundamental 
-building blocks, Workflows and Activities, with the Temporal Ruby SDK. 
-It simulates a money transfer between two bank accounts, illustrating 
-how to implement business logic for both success and failure scenarios. 
+The code in this repository demonstrates how to use the fundamental
+building blocks, Workflows and Activities, with the Temporal Ruby SDK.
+It simulates a money transfer between two bank accounts, illustrating
+how to implement business logic for both success and failure scenarios.
+
 
 ## Step 1: Setup
 
-Use the [temporal CLI](https://docs.temporal.io/cli) to start a local 
+Use the [temporal CLI](https://docs.temporal.io/cli) to start a local
 Temporal Service:
 
 
@@ -15,7 +16,7 @@ Temporal Service:
 temporal server start-dev
 ```
 
-In a new terminal, clone the repository and change into the directory 
+In a new terminal, clone the repository and change into the directory
 containing the source code:
 
 ```command
@@ -25,28 +26,29 @@ cd money-transfer-project-template-ruby
 
 ## Step 2: Run the Worker
 
-The Worker is responsible for polling the Temporal Service for incoming 
-requests, executing the Workflow and Activity code in response to those 
+The Worker is responsible for polling the Temporal Service for incoming
+requests, executing the Workflow and Activity code in response to those
 requests, and reporting the results back to the Temporal Service.
 
-Since the progress of a Workflow Execution depends on having at least 
+Since the progress of a Workflow Execution depends on having at least
 one Worker running, start a Worker by executing the following command:
 
 ```command
 bundle exec ruby worker.rb
 ```
 
+
 ## Step 3: Start the Workflow
 
-In a new terminal, run the following command to start the money transfer 
+In a new terminal, run the following command to start the money transfer
 Workflow:
 
 ```command
 bundle exec ruby starter.rb
 ```
 
-This program submits a request to the Temporal Service, asking it to 
-execute the Workflow with input data specified in the program. 
+This program submits a request to the Temporal Service, asking it to
+execute the Workflow with input data specified in the program.
 
 
 ### Manually specifying input data
@@ -60,10 +62,29 @@ For example:
 bundle exec ruby starter.rb A123 B789 100 REF999
 ```
 
+
+### Special Cases
+
+In most cases, the Workflow Execution should succeed and you'll see a
+confirmation message in the terminal window. You can also examine the
+details in the Temporal Web UI (which should be available at this URL: 
+<http://localhost:8233>).
+
+There are two things that will trigger a different outcome:
+
+1. If the transfer amount exceeds $1000, the withdrawal will fail due
+   to insufficient funds. As per the custom Retry Policy in `workflow.rb`,
+   this is defined as a non-retryable error, so the Workflow will
+   immediately fail.
+2. If the target account is `B5555`, the deposit Activity will raise an
+   `InvalidAccountError`. The Workflow is designed to handle this special
+    case by refunding the amount withdrawn back to the source account.
+
+
 ## Testing
 
-The `test` directory contains automated tests for both the Workflow and 
-each Activity. You can execute these by running the following command 
+The `test` directory contains automated tests for both the Workflow and
+each Activity. You can execute these by running the following command
 from the project root.
 
 ```command

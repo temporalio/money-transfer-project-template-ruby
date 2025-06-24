@@ -48,6 +48,18 @@ bundle exec ruby starter.rb
 This program submits a request to the Temporal Service, asking it to 
 execute the Workflow with input data specified in the program. 
 
+
+### Manually specifying input data
+
+You can override each of those four parameters (source account, target
+account, amount, and reference ID) using positional commandline parameters.
+For example:
+
+
+```command
+bundle exec ruby starter.rb A123 B789 100 REF999
+```
+
 ## Testing
 
 The `test` directory contains automated tests for both the Workflow and 

@@ -22,7 +22,8 @@ worker = Temporalio::Worker.new(
   task_queue: MoneyTransfer::TASK_QUEUE_NAME,
   workflows: [MoneyTransfer::MoneyTransferWorkflow],
   activities: [MoneyTransfer::BankActivities::Withdraw, 
-               MoneyTransfer::BankActivities::Deposit]
+               MoneyTransfer::BankActivities::Deposit,
+			   MoneyTransfer::BankActivities::Refund]
 )
 
 # Start the Worker, which will poll the Task Queue until stopped

@@ -1,9 +1,18 @@
-# Money Transfer Example Project (Ruby SDK)
+# Temporal Money Transfer Ruby Project Template
 
 The code in this repository demonstrates how to use the fundamental
 building blocks, Workflows and Activities, with the Temporal Ruby SDK.
 It simulates a money transfer between two bank accounts, illustrating
 how to implement business logic for both success and failure scenarios.
+This repository also serves as a template for creating new projects
+that use the Temporal Ruby SDK.
+
+Although you can run the example by executing the commands shown below, our
+[Run your first app tutorial](https://docs.temporal.io/docs/ruby/run-your-first-app-tutorial)
+provides more thorough coverage for this example.
+
+Note: Code in this project uses Snipsync comment markers so that we can
+automatically pull certain code snippets into the tutorial.
 
 
 ## Step 1: Setup

@@ -30,4 +30,10 @@ handle = client.start_workflow(
 puts "Initiated transfer of $#{details.amount} from #{details.source_account} to #{details.target_account}"
 puts "Workflow ID: #{handle.id}"
 
-puts "Workflow result: #{handle.result}"
+# Keep running (and retry) if the Temporal Service becomes unavailable
+begin
+  puts "Workflow result: #{handle.result}"
+rescue Temporalio::Error::RPCError
+  puts 'Temporal Service unavailable while awaiting result'
+  retry
+end

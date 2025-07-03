@@ -14,4 +14,3 @@ task default: :test
 task :worker do
   sh 'bin/worker'
 end
-

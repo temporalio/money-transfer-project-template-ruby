@@ -8,4 +8,3 @@ gem 'temporalio', '~> 0.4'
 group :test do
   gem 'minitest'
 end
-

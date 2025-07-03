@@ -13,6 +13,9 @@ module MoneyTransfer
         puts("Doing a withdrawal from #{details.source_account} for #{details.amount}")
         raise InsufficientFundsError, 'Transfer amount too large' if details.amount > 1000
 
+        # Uncomment to expose a bug and cause the Activity to fail
+        # x = details.amount / 0
+
         # Generate and returnt the transaction ID
         "OKW-#{details.amount}-#{details.source_account}"
       end

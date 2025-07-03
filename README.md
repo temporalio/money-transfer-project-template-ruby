@@ -71,7 +71,6 @@ For example:
 bundle exec ruby starter.rb A123 B789 100 REF999
 ```
 
-
 ### Special Cases
 
 In most cases, the Workflow Execution should succeed and you'll see a
@@ -83,10 +82,10 @@ There are two things that will trigger a different outcome:
 
 1. If the transfer amount exceeds $1000, the withdrawal will fail due
    to insufficient funds. As per the custom Retry Policy in `workflow.rb`,
-   this is defined as a non-retryable error, so the Workflow will
-   immediately fail.
+   this is defined as non-retryable. Since the Workflow does not provide
+   special handling in this case, the Workflow Execution immediately fails.
 2. If the target account is `B5555`, the deposit Activity will raise an
-   `InvalidAccountError`. The Workflow is designed to handle this special
+   `InvalidAccountError`. The Workflow provides special handling for this
     case by refunding the amount withdrawn back to the source account.
 
 

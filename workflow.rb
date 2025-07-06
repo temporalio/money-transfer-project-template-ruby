@@ -12,9 +12,9 @@ module MoneyTransfer
   class MoneyTransferWorkflow < Temporalio::Workflow::Definition
     def execute(details)
       retry_policy = Temporalio::RetryPolicy.new(
-        max_attempts: 3,
-        max_interval: 2,
+        max_interval: 10,
         non_retryable_error_types: [
+          'InvalidAccountError',
           'InsufficientFundsError'
         ]
       )

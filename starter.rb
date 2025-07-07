@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @@@SNIPSTART money-transfer-project-template-ruby-starter
 require_relative 'shared'
 require_relative 'workflow'
 require 'securerandom'
@@ -37,3 +38,5 @@ rescue Temporalio::Error::RPCError
   puts 'Temporal Service unavailable while awaiting result'
   retry
 end
+# @@@SNIPEND
+

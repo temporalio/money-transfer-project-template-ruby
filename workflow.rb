@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @@@SNIPSTART money-transfer-project-template-ruby-workflow
 require_relative 'activities'
 require_relative 'shared'
 require 'temporalio/retry_policy'
@@ -60,3 +61,5 @@ module MoneyTransfer
     end
   end
 end
+# @@@SNIPEND
+

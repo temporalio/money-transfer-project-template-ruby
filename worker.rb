@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @@@SNIPSTART money-transfer-project-template-ruby-worker
 require_relative 'activities'
 require_relative 'shared'
 require_relative 'workflow'
@@ -29,4 +30,5 @@ worker = Temporalio::Worker.new(
 # Start the Worker, which will poll the Task Queue until stopped
 puts 'Starting Worker (press Ctrl+C to exit)'
 worker.run(shutdown_signals: ['SIGINT'])
+# @@@SNIPEND
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @@@SNIPSTART money-transfer-project-template-ruby-activities
 require_relative 'shared'
 require 'temporalio/activity'
 
@@ -52,3 +53,5 @@ module MoneyTransfer
     end
   end
 end
+# @@@SNIPEND
+

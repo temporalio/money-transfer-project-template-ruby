@@ -8,7 +8,7 @@ This repository also serves as a template for creating new projects
 that use the Temporal Ruby SDK.
 
 Although you can run the example by executing the commands shown below, our
-[Run your first app tutorial](https://docs.temporal.io/docs/ruby/run-your-first-app-tutorial)
+[Run your first app tutorial](https://learn.temporal.io/getting_started/ruby/first_program_in_ruby/)
 provides more thorough coverage for this example.
 
 Note: Code in this project uses Snipsync comment markers so that we can

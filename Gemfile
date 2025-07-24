@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '~> 13.2'
-gem 'temporalio', '~> 0.4'
+gem 'temporalio', '~> 0.5'
 
 group :test do
   gem 'minitest'

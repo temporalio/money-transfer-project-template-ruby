@@ -17,7 +17,7 @@ module MoneyTransfer
         # Uncomment to expose a bug and cause the Activity to fail
         # x = details.amount / 0
 
-        # Generate and returnt the transaction ID
+        # Generate and return the transaction ID
         "OKW-#{details.amount}-#{details.source_account}"
       end
     end
@@ -30,7 +30,7 @@ module MoneyTransfer
         puts("Doing a deposit into #{details.target_account} for #{details.amount}")
         raise InvalidAccountError, 'Invalid account number' if details.target_account == 'B5555'
 
-        # Generate and returnt the transaction ID
+        # Generate and return the transaction ID
         "OKD-#{details.amount}-#{details.target_account}"
       end
     end
@@ -47,7 +47,7 @@ module MoneyTransfer
       def execute(details)
         puts("Refunding #{details.amount} back to account #{details.source_account}")
 
-        # Generate and returnt the transaction ID
+        # Generate and return the transaction ID
         "OKR-#{details.amount}-#{details.source_account}"
       end
     end

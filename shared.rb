@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'json/add/struct'
-require 'temporalio/error'
 
 module MoneyTransfer
   TASK_QUEUE_NAME = 'money-transfer'

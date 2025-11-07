@@ -33,6 +33,13 @@ git clone https://github.com/temporalio/money-transfer-project-template-ruby
 cd money-transfer-project-template-ruby
 ```
 
+Install the libraries needed to run the example, which includes the 
+Temporal Ruby SDK:
+
+```command
+bundle install
+```
+
 ## Step 2: Run the Worker
 
 The Worker is responsible for polling the Temporal Service for incoming

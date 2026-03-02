@@ -4,17 +4,11 @@
 require_relative 'activities'
 require_relative 'shared'
 require_relative 'workflow'
-require 'logger'
 require 'temporalio/client'
 require 'temporalio/worker'
 
-# Create a Temporal Client that connects to a local Temporal Service, uses
-# a Namespace called 'default', and displays log messages to standard output
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+# Create a Temporal Client that connects to the Temporal Service
+client = MoneyTransfer::create_client
 
 # Create a Worker that polls the specified Task Queue and can 
 # fulfill requests for the specified Workflow and Activities

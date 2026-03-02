@@ -2,8 +2,8 @@
 
 source 'https://rubygems.org'
 
-gem 'rake', '~> 13.2'
-gem 'temporalio', '~> 1.0.0'
+gem 'rake'
+gem 'temporalio'
 
 group :test do
   gem 'minitest'

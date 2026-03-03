@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'json/add/struct'
+require 'temporalio/env_config'
+require 'temporalio/client'
 
 module MoneyTransfer
   TASK_QUEUE_NAME = 'money-transfer'
@@ -23,4 +25,21 @@ module MoneyTransfer
     end
   end
   # @@@SNIPEND
+
+  # Create the Temporal Client that connects to the Temporal Service.
+  # By default, it will connect to one running locally, on the standard
+  # port, and use the default Namespace. You can override this by setting
+  # the TEMPORAL_PROFILE environment variable to the name of a specific
+  # profile that you've set up using the Temporal CLI.
+  def self.create_client
+    profile = ENV['TEMPORAL_PROFILE']
+    args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options(
+      profile: profile
+    )
+
+    args[0] ||= 'localhost:7233'
+    args[1] ||= 'default'
+
+    Temporalio::Client.connect(*args, **kwargs)
+  end
 end

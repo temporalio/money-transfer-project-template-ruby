@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'logger'
 require 'json/add/struct'
 require 'temporalio/env_config'
 require 'temporalio/client'

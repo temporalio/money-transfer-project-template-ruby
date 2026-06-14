@@ -8,11 +8,13 @@ require 'logger'
 require 'temporalio/client'
 require 'temporalio/worker'
 
-# Create a Temporal Client that connects to a local Temporal Service, uses
-# a Namespace called 'default', and displays log messages to standard output
+# Connect to Temporal Cloud using the gRPC endpoint, namespace, and API key
+# supplied via environment variables, with TLS enabled.
 client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
+  ENV.fetch('TEMPORAL_ADDRESS'),
+  ENV.fetch('TEMPORAL_NAMESPACE'),
+  api_key: ENV.fetch('TEMPORAL_API_KEY'),
+  tls: true,
   logger: Logger.new($stdout, level: Logger::INFO)
 )
 

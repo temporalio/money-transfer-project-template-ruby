@@ -6,10 +6,14 @@ require_relative 'workflow'
 require 'securerandom'
 require 'temporalio/client'
 
-# Create the Temporal Client that the Worker will use to connect to the
-# Temporal Service (in this case, it will connect to one running locally,
-# on the standard port, and use the default namespace)
-client = Temporalio::Client.connect('localhost:7233', 'default')
+# Connect to Temporal Cloud using the gRPC endpoint, namespace, and API key
+# supplied via environment variables, with TLS enabled.
+client = Temporalio::Client.connect(
+  ENV.fetch('TEMPORAL_ADDRESS'),
+  ENV.fetch('TEMPORAL_NAMESPACE'),
+  api_key: ENV.fetch('TEMPORAL_API_KEY'),
+  tls: true
+)
 
 # Default values for the payment details (can override via positional commandline parameters)
 details = MoneyTransfer::TransferDetails.new('A1001', 'B2002', 100, SecureRandom.uuid)

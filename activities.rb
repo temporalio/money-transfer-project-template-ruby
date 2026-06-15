@@ -30,6 +30,23 @@ module MoneyTransfer
         puts("Doing a deposit into #{details.target_account} for #{details.amount}")
         raise InvalidAccountError, 'Invalid account number' if details.target_account == 'B5555'
 
+        # Demo-only failure injection, driven by the DEMO_FAILURE env var on the
+        # Worker. Unset/off leaves behavior unchanged.
+        case ENV.fetch('DEMO_FAILURE', '').downcase
+        when 'transient'
+          # Fail the first two attempts with a retryable error; Temporal retries
+          # and the activity succeeds on attempt 3 -> the Workflow recovers.
+          if Temporalio::Activity::Context.current.info.attempt < 3
+            raise 'Simulated transient deposit failure'
+          end
+        when 'permanent'
+          # Always fail with a non-retryable error so the Workflow's refund
+          # compensation (saga rollback) runs instead of retrying.
+          raise Temporalio::Error::ApplicationError.new(
+            'Simulated permanent deposit failure', type: 'DepositFailure', non_retryable: true
+          )
+        end
+
         # Generate and return the transaction ID
         "OKD-#{details.amount}-#{details.target_account}"
       end

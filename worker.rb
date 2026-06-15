@@ -6,17 +6,14 @@ require_relative 'shared'
 require_relative 'workflow'
 require 'logger'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 
-# Connect to Temporal Cloud using the gRPC endpoint, namespace, and API key
-# supplied via environment variables, with TLS enabled.
-client = Temporalio::Client.connect(
-  ENV.fetch('TEMPORAL_ADDRESS'),
-  ENV.fetch('TEMPORAL_NAMESPACE'),
-  api_key: ENV.fetch('TEMPORAL_API_KEY'),
-  tls: true,
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+# Connect to Temporal Cloud by loading the "cloud-setup" profile from the shared
+# Temporal client config (temporal.toml), which supplies the Cloud address,
+# namespace, TLS settings, and API key.
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options(profile: 'cloud-setup')
+client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO))
 
 # Create a Worker that polls the specified Task Queue and can 
 # fulfill requests for the specified Workflow and Activities

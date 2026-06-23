@@ -26,7 +26,7 @@ details.reference_id = ARGV[3] if ARGV.length >= 4
 handle = client.start_workflow(
   MoneyTransfer::MoneyTransferWorkflow,
   details,
-  id: "moneytransfer-#{details.reference_id}",
+  id: ENV.fetch('WORKFLOW_ID', 'money-transfer-demo'),
   task_queue: MoneyTransfer::TASK_QUEUE_NAME
 )
 

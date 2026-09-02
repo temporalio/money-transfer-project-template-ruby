@@ -40,6 +40,13 @@ Temporal Ruby SDK:
 bundle install
 ```
 
+### Configure a Temporal connection
+
+The worker and starter use the Temporal Ruby SDK's standard environment
+configuration. With no configuration, they connect to `localhost:7233` in the
+`default` Namespace. Configure a different Temporal Service using the SDK's
+[environment configuration API](https://ruby.temporal.io/Temporalio/EnvConfig/ClientConfig.html).
+
 ## Step 2: Run the Worker
 
 The Worker is responsible for polling the Temporal Service for incoming

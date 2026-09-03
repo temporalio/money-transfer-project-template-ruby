@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'json/add/struct'
+require 'temporalio/client'
+require 'temporalio/env_config'
 
 module MoneyTransfer
   TASK_QUEUE_NAME = 'money-transfer'
@@ -23,4 +25,14 @@ module MoneyTransfer
     end
   end
   # @@@SNIPEND
+
+  # Creates a client using the SDK's standard environment configuration.
+  def self.create_client(logger: nil)
+    args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+    args[0] = 'localhost:7233' if args[0].to_s.empty?
+    args[1] = 'default' if args[1].to_s.empty?
+    kwargs[:logger] = logger if logger
+
+    Temporalio::Client.connect(*args, **kwargs)
+  end
 end

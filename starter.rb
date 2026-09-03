@@ -4,12 +4,10 @@
 require_relative 'shared'
 require_relative 'workflow'
 require 'securerandom'
-require 'temporalio/client'
 
-# Create the Temporal Client that the Worker will use to connect to the
-# Temporal Service (in this case, it will connect to one running locally,
-# on the standard port, and use the default namespace)
-client = Temporalio::Client.connect('localhost:7233', 'default')
+# Create the Temporal Client that the Worker uses to communicate with the
+# Temporal Service.
+client = MoneyTransfer.create_client
 
 # Default values for the payment details (can override via positional commandline parameters)
 details = MoneyTransfer::TransferDetails.new('A1001', 'B2002', 100, SecureRandom.uuid)
@@ -39,4 +37,3 @@ rescue Temporalio::Error::RPCError
   retry
 end
 # @@@SNIPEND
-

@@ -5,7 +5,9 @@ require 'temporalio/client'
 require 'temporalio/env_config'
 
 module MoneyTransfer
-  TASK_QUEUE_NAME = 'money-transfer'
+  # Reads TEMPORAL_TASK_QUEUE when set — e.g. a test harness isolating each run on its
+  # own queue — otherwise the shared default, so a copy-paste user is unaffected.
+  TASK_QUEUE_NAME = ENV.fetch('TEMPORAL_TASK_QUEUE', 'money-transfer')
 
   # InsufficientFundsError is raised when the source account
   # balance is too low to successfully complete the withdrawal.
